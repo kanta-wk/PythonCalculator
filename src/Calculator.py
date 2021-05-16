@@ -20,7 +20,7 @@ class Calculator:
     def get_right_value(self):
         pass
 
-    def set_right_value(self):
+    def set_right_value(self, value):
         pass
 
     def get_operator(self):
