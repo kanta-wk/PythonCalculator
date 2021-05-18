@@ -1,0 +1,14 @@
+#:kivy 2.0.0
+<Display>:
+    width: root.width
+    Label:
+        size: root.size
+        pos: root.pos
+        id: display
+        text: root.text
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 0.5
+            Rectangle:
+                pos: self.pos
+                size: self.size
