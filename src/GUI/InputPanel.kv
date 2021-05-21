@@ -1,62 +1,79 @@
 #:kivy 2.0.0
+
 <InputButton@Button>:
+    send_data: ""
     font_size: 80
+
+<NumberButton@InputButton>:
+    on_press: app.number_button_on_press(send_data=self.send_data)
+
+<DecimalButton@InputButton>:
+    on_press: app.decimal_button_on_press(send_data=self.send_data)
+
+<OperatorButton@InputButton>:
+    on_press: app.operator_button_on_press(send_data=self.send_data)
+
+<EqualButton@InputButton>:
+    on_press: app.equal_button_on_press(send_data=self.send_data)
+
+<ACButton@InputButton>:
+    on_press: app.ac_button_on_press(send_data=self.send_data)
 
 <InputPanel>:
     rows: 5
     cols: 4
 
-    InputButton:
-        id: ac
+    ACButton:
+        send_data: root.AC
         text: "AC"
     Widget:
     Widget:
-    InputButton:
-        id: divi
+    OperatorButton:
+        send_data: root.DIVI
         text: "÷"
-    InputButton:
-        id: seven
+    NumberButton:
+        send_data: root.SEVEN
         text: "7"
-    InputButton:
-        id: eight
+    NumberButton:
+        send_data: root.EIGHT
         text: "8"
-    InputButton:
-        id: nine
+    NumberButton:
+        send_data: root.NINE
         text: "9"
-    InputButton:
-        id: multi
+    OperatorButton:
+        send_data: root.MULTI
         text: "×"
-    InputButton:
-        id: four
+    NumberButton:
+        send_data: root.FOUR
         text: "4"
-    InputButton:
-        id: five
+    NumberButton:
+        send_data: root.FIVE
         text: "5"
-    InputButton:
-        id: six
+    NumberButton:
+        send_data: root.SIX
         text: "6"
-    InputButton:
-        id: minus
+    OperatorButton:
+        send_data: root.MINUS
         text: "-"
-    InputButton:
-        id: one
+    NumberButton:
+        send_data: root.ONE
         text: "1"
-    InputButton:
-        id: two
+    NumberButton:
+        send_data: root.TWO
         text: "2"
-    InputButton:
-        id: three
+    NumberButton:
+        send_data: root.THREE
         text: "3"
-    InputButton:
-        id: plus
+    OperatorButton:
+        send_data: root.PLUS
         text: "+"
     Widget:
-    InputButton:
-        id: zero
+    NumberButton:
+        send_data: root.ZERO
         text: "0"
-    InputButton:
-        id: decimal
+    DecimalButton:
+        send_data: root.DECIMAL
         text: "."
-    InputButton:
-        id: equal
+    EqualButton:
+        send_data: root.EQUAL
         text: "="
