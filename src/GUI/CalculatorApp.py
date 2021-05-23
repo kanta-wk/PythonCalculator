@@ -11,7 +11,7 @@ from kivy.properties import ObjectProperty
 try:
     from .InputPanel import InputPanel
     from .Display import Display
-except ModuleNotFoundError:
+except (ModuleNotFoundError, ImportError):
     from InputPanel import InputPanel
     from Display import Display
 

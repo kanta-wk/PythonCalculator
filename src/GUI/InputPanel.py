@@ -9,7 +9,12 @@ from kivy.core.window import Keyboard
 from SendCharacters import SendCharacters
 
 class InputButton(Button):
-    pass
+
+    def link_button_on_press(self):
+        self.dispatch("on_press")
+
+    def link_button_on_release(self):
+        self.dispatch("on_release")
 
 
 class InputPanel(GridLayout, SendCharacters):
@@ -67,12 +72,14 @@ class InputPanel(GridLayout, SendCharacters):
         button = self.__search_button(keycode)
         if(button):
             button.state = "down"
+            button.link_button_on_press()
             print(button.on_press)
 
     def _button_on_release(self, keycode):
         button = self.__search_button(keycode)
         if(button):
             button.state = "normal"
+            button.link_button_on_release()
 
     def __search_button(self, keycode:list):
         __keycode = self.__convert_key_code(keycode)

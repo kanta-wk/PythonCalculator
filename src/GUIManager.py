@@ -3,7 +3,7 @@ from kivy.core.window import Window
 try:
     from .GUI.SendCharacters import SendCharacters
     from .GUI.CalculatorApp import CalculatorApp as GuiApp
-except ModuleNotFoundError:
+except (ModuleNotFoundError, ImportError):
     from GUI.SendCharacters import SendCharacters
     from GUI.CalculatorApp import CalculatorApp as GuiApp
 
