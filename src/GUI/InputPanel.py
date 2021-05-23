@@ -55,18 +55,19 @@ class InputPanel(GridLayout, SendCharacters):
         self._keyboard = None
 
     def _on_keyboard_up(self, keyboard, keycode):
-        if(keycode[1] == Keyboard.keycodes["shift"] or keycode[1] == Keyboard.keycodes["rshift"]):
+        if(keycode[0] == Keyboard.keycodes["shift"] or keycode[0] == Keyboard.keycodes["rshift"]):
             self.__shift = False
-        if(keycode[1] == Keyboard.keycodes["lctrl"] or keycode[1] == Keyboard.keycodes["rctrl"]):
+        if(keycode[0] == Keyboard.keycodes["lctrl"] or keycode[0] == Keyboard.keycodes["rctrl"]):
             self.__ctrl = False
         self._button_on_release(keycode)
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        if(keycode[1] == Keyboard.keycodes["shift"] or keycode[1] == Keyboard.keycodes["rshift"]):
+        if(keycode[0] == Keyboard.keycodes["shift"] or keycode[0] == Keyboard.keycodes["rshift"]):
             self.__shift = True
-        if(keycode[1] == Keyboard.keycodes["lctrl"] or keycode[1] == Keyboard.keycodes["rctrl"]):
+        if(keycode[0] == Keyboard.keycodes["lctrl"] or keycode[0] == Keyboard.keycodes["rctrl"]):
             self.__ctrl = True
         self._button_on_press(keycode)
+        print(keycode)
 
     def _button_on_press(self, keycode):
         button = self.__search_button(keycode)
@@ -93,11 +94,7 @@ class InputPanel(GridLayout, SendCharacters):
             return simple_convert
 
         shift_convert = self.WITH_SHIFT.get(keycode[0])
-        print("shift:{}".format(self.__shift))
 
         if(self.__shift and shift_convert):
             return shift_convert
         return keycode[0]
-
-    def _is_number_key(self) -> bool:
-        pass
