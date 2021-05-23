@@ -1,6 +1,7 @@
 import os
 from kivy.config import Config
 Config.set('graphics', 'resizable', False)
+Config.set('kivy', 'exit_on_escape', '0')
 # Config.set('modules', 'showborder', '')#TODO デバッグ用
 from kivy.app import App
 from kivy.core.window import Window
