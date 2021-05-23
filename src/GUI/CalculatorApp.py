@@ -16,6 +16,9 @@ except (ModuleNotFoundError, ImportError):
     from Display import Display
 
 class Calculator(BoxLayout):
+    """
+    APP直下の最上位に位置するウィジェット
+    """
     main_display = ObjectProperty(None)
     sub_display = ObjectProperty(None)
 
@@ -32,14 +35,31 @@ class Calculator(BoxLayout):
         self.sub_display.text = text
 
     main_string = property(get_main_string, set_main_string)
+    """
+    メインディスプレイに表示している文字列
+    """
     sub_string = property(get_sub_string, set_sub_string)
+    """
+    サブディスプレイに表示している文字列
+    """
 
 class CalculatorApp(App):
+    """
+    アプリクラス
+    """
     WIDTH = 500
     HEIGHT = 700
     Window.size = (WIDTH, HEIGHT)
 
     def __init__(self, event_num=None, event_op=None, event_eq=None, event_dec=None, event_ac=None):
+        """
+        イベントの初期化とスーパークラスの初期化
+        :param event_num: 数値ボタン押下時のイベントハンドラ
+        :param event_op: 演算子ボタン押下時のイベントハンドラ
+        :param event_eq: イコールボタン押下時のイベントハンドラ
+        :param event_dec: 小数点ボタン押下時のイベントハンドラ
+        :param event_ac: オールクリアボタン押下時のイベントハンドラ
+        """
         self.__event_num = event_num
         self.__event_op = event_op
         self.__event_eq = event_eq
@@ -51,11 +71,11 @@ class CalculatorApp(App):
         self.__app = Calculator()
         return self.__app
 
-    def display_main(self, message):
-        self.__app.display_main(message)
-
     @property
     def widgets(self):
+        """
+        :return: アプリケーション配下のウィジェット
+        """
         return self.__app
 
     def number_button_on_press(self, send_data=None):
@@ -73,9 +93,18 @@ class CalculatorApp(App):
     def equal_button_on_press(self, send_data=None):
         self.__call_event_handler(self.__event_eq, send_data)
 
-    def __call_event_handler(self, handler, send_data):
+    def __call_event_handler(self, handler, *args):
+        """
+        イベントハンドラの呼び出し。
+        イベントハンドラが未登録の場合は何もしない。
+        :param handler: 実行するイベントハンドラ
+        :param args: イベントハンドラに渡す引数。
+        :return: イベントハンドラを実行したらTrue、未実行ならFalse
+        """
         if(handler):
-            handler(send_data)
+            handler(*args)
+            return True
+        return False
 
     def set_event_num(self, handler):
         self.__event_num = handler
@@ -93,10 +122,25 @@ class CalculatorApp(App):
         self.__event_ac = handler
 
     event_num = property(fset=set_event_num)
+    """
+    数値ボタンが押下された時に実行されるハンドラ
+    """
     event_dec = property(fset=set_event_dec)
+    """
+    小数点ボタンが押下された時に実行されるハンドラ
+    """
     event_op = property(fset=set_event_op)
+    """
+    演算子ボタンが押下された時に実行されるハンドラ
+    """
     event_equal = property(fset=set_event_equal)
+    """
+    イコールボタンが押下された時に実行されるハンドラ
+    """
     event_ac = property(fset=set_event_ac)
+    """
+    オールクリアボタンが押下された時に実行されるハンドラ
+    """
 
 if __name__ == '__main__':
     CalculatorApp().run()
