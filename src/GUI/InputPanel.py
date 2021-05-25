@@ -29,6 +29,10 @@ class InputButton(Button):
         self.dispatch("on_release")
 
 class ButtonContainer(BoxLayout):
+    """
+    ボタンコンテナクラス。
+    このクラスの中のボタンはキーボードと紐づけができる。
+    """
     pass
 
 class InputPanel(BoxLayout, SendCharacters):
@@ -146,6 +150,13 @@ class InputPanel(BoxLayout, SendCharacters):
         return self.__search_button(__keycode, self)
 
     def __search_button(self, keycode, parent:Widget)->(Widget, None):
+        """
+        受け取ったウィジェットの中を検索し、引数と同じキーコードを持つウィジェットを返す。
+        ウィジェットの中にButtonContainerクラスがいる場合は再帰的にこのメソッドを呼び出し検索する。
+        :param keycode: 検索するキーコード
+        :param parent: 検索するウィジェット
+        :return: キーコードをもつウィジェット。いなければNone
+        """
         for widget in parent.children:
             if(isinstance(widget, InputButton) and widget.keycode == keycode):
                 return widget
