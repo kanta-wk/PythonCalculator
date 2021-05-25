@@ -50,6 +50,7 @@ class CalculatorApp(App):
     WIDTH = 500
     HEIGHT = 700
     Window.size = (WIDTH, HEIGHT)
+    BACK_GROUND_COLOR = [1,1,1,0.5]
 
     def __init__(self, event_num=None, event_op=None, event_eq=None, event_dec=None, event_ac=None):
         """

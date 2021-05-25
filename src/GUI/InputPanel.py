@@ -1,5 +1,5 @@
 import os
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
@@ -28,8 +28,10 @@ class InputButton(Button):
         """
         self.dispatch("on_release")
 
+class ButtonContainer(BoxLayout):
+    pass
 
-class InputPanel(GridLayout, SendCharacters):
+class InputPanel(BoxLayout, SendCharacters):
     """
     入力パネルクラス。
     Buttonからの入力とキーボードからの入力を扱う。
@@ -117,7 +119,7 @@ class InputPanel(GridLayout, SendCharacters):
         そのボタンを押下する。
         :param keycode: 押されたキーのキーコード
         """
-        button = self.__search_button(keycode)
+        button = self.__get_event_button(keycode)
         if(button):
             button.state = "down"
             button.link_button_on_press()
@@ -129,21 +131,30 @@ class InputPanel(GridLayout, SendCharacters):
         そのボタンを離す。
         :param keycode: 離されたキーのキーコード
         """
-        button = self.__search_button(keycode)
+        button = self.__get_event_button(keycode)
         if(button):
             button.state = "normal"
             button.link_button_on_release()
 
-    def __search_button(self, keycode:list)->Widget:
+    def __get_event_button(self, keycode:list)->Widget:
         """
         配下のボタンクラスを検索し、受け取ったキーコードの情報を持つボタンを返す。
         :param keycode: 検索するキーコード
         :return: 引数で受け取ったキーコードを持つボタン
         """
         __keycode = self.__convert_key_code(keycode)
-        for widget in self.children:
-            if(isinstance(widget, InputButton) and widget.keycode == __keycode):
+        return self.__search_button(__keycode, self)
+
+    def __search_button(self, keycode, parent:Widget)->(Widget, None):
+        for widget in parent.children:
+            if(isinstance(widget, InputButton) and widget.keycode == keycode):
                 return widget
+            elif(isinstance(widget, ButtonContainer)):
+                button = self.__search_button(keycode, widget)
+                if(button):
+                    return button
+        return None
+
 
     def __convert_key_code(self, keycode: list)->int:
         """
