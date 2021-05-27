@@ -6,6 +6,7 @@
     send_data: ""
     keycode: 0
     font_size: 80
+    background_color: 1,1,1,1
 
 <NumberButton@InputButton>:
     on_press: app.number_button_on_press(send_data=self.send_data)
@@ -25,18 +26,30 @@
 <InputPanel>:
     orientation: "vertical"
     canvas.before:
-#        Color:
-#            rgba: app.BACK_GROUND_COLOR
-#        Rectangle:
-#            size: self.size
-#            pos: self.pos
+        Color:
+            rgba: app.BACK_GROUND_COLOR
+        Rectangle:
+            size: self.size
+            pos: self.pos
     ButtonContainer:
         ACButton:
             send_data: root.AC
             keycode: root.key_codes["escape"]
             text: "AC"
         Widget:
+            canvas.before:
+                Color:
+                    rgba: 0.2,0.2,0.2,0.3
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         Widget:
+            canvas.before:
+                Color:
+                    rgba: 0.2,0.2,0.2,0.3
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         OperatorButton:
             send_data: root.DIVI
             keycode: root.key_codes["/"]
