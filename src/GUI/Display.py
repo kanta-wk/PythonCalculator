@@ -12,6 +12,8 @@ class Display(Widget):
     Builder.load_file("{}/Display.kv".format(os.path.dirname(__file__)))
     text = StringProperty("")#表示文字列
     font_size = NumericProperty(50)#ラベルのフォントサイズ
+    DISPLAY_BACK_GROUND_COLOR = [0.871, 0.882, 0.8]
+    MAIN_FONT_COLOR = [0, 0, 0]
 
     def display(self, message):
         """

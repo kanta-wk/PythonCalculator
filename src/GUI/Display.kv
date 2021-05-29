@@ -10,9 +10,10 @@
         halign: 'right'
         valign: 'middle'
         font_size: root.font_size
+        color: root.MAIN_FONT_COLOR
         canvas.before:
             Color:
-                rgba: app.BACK_GROUND_COLOR
+                rgb: root.DISPLAY_BACK_GROUND_COLOR
             Rectangle:
                 pos: self.pos
                 size: self.size
